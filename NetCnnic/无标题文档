@@ -1,0 +1,14 @@
+
+rock@abnormal:~/rock/codes/NetCnnic/output$ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./plugin
+rock@abnormal:~/rock/codes/NetCnnic/output$ ./bin/control_main -f conf/Controls.conf
+
+
+
+
+rock@abnormal:~/rock/codes/NetCnnic/output$ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./plugin
+rock@abnormal:~/rock/codes/NetCnnic/output$ ./bin/NetGather -f conf/NetGather.conf 
+
+
+
+
+rock@abnormal:~/rock/codes/NetCnnic$ make

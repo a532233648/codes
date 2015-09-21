@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/lab/!svn/ver/334/libsource4/ullib/tags/ullib_4.0.0.0/output/include/dep
+END
+dep_udpdns.h
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/lab/!svn/ver/334/libsource4/ullib/tags/ullib_4.0.0.0/output/include/dep/dep_udpdns.h
+END
+dep_pack.h
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/lab/!svn/ver/334/libsource4/ullib/tags/ullib_4.0.0.0/output/include/dep/dep_pack.h
+END
+dep_file.h
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/lab/!svn/ver/334/libsource4/ullib/tags/ullib_4.0.0.0/output/include/dep/dep_file.h
+END
+dep_http.h
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/lab/!svn/ver/334/libsource4/ullib/tags/ullib_4.0.0.0/output/include/dep/dep_http.h
+END
+dep_htmltag.h
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/lab/!svn/ver/334/libsource4/ullib/tags/ullib_4.0.0.0/output/include/dep/dep_htmltag.h
+END
+dep_log.h
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/lab/!svn/ver/334/libsource4/ullib/tags/ullib_4.0.0.0/output/include/dep/dep_log.h
+END
+dep_conf.h
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/lab/!svn/ver/334/libsource4/ullib/tags/ullib_4.0.0.0/output/include/dep/dep_conf.h
+END
+dep_net.h
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/lab/!svn/ver/334/libsource4/ullib/tags/ullib_4.0.0.0/output/include/dep/dep_net.h
+END
+dep_exlink.h
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/lab/!svn/ver/334/libsource4/ullib/tags/ullib_4.0.0.0/output/include/dep/dep_exlink.h
+END
