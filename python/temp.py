@@ -44,13 +44,14 @@ def votemax(address,flist):
 	for i in range(len(address)):
 		if(len(address[i])>maxacc):
 			maxacc=len(address[i])
-	for addnum in range(maxacc):
+	for addnum in range(3):
 		for i in range(len(address)):
 			if(tempadd.has_key(address[i][addnum])==True):
 				tempadd[address[i][addnum]]+=1
 			else :
 				tempadd[address[i][addnum]]=1
 		tempkey=selmax(tempadd)
+		address=delval(address,tempkey,addnum)
 		flist.insert(addnum,tempkey)
 		#tempkey=""
 		#for add1 in tempadd:
@@ -59,8 +60,18 @@ def votemax(address,flist):
 		tempadd={}
 		#print "this ---- "
 
+def delval(address,val,addnum):
+	for key in address:
+		if(key[addnum]!=val):
+			address.remove(key)
+	return address
+
+
+
+
 def selmax(tempdic):
 	max=0
+	loc="\t"
 	for key in tempdic:
 		#print "this temokey"+'\t'+str(tempdic[key])+'\t'+str(max)+'\t'+"end temokey"
 		if(tempdic[key]>max and key!="\t"):
@@ -69,12 +80,12 @@ def selmax(tempdic):
 		#print "this temokey"+'\t'+loc.decode('utf-8').encode('gbk')+'\t'+key.decode('utf-8').encode('gbk')+'\t'+"end temokey"
 	return loc
 
-def delval(tempdic):
+#def delval(tempdic):
 	
 
 
 if __name__=='__main__':
-	address=[["中国","北京市","海淀区"],["中国","北京市","海淀区"],["中国","北京市","\t"],["中国","湖北省","武汉市"],["中国","\t","\t"]]
+	address=[["泰国","京市","海淀区"],["泰国","京市","海淀区"],["泰国","京市","海淀区"],["中国","北京市","朝阳区"],["中国","湖南省","朝阳区"],["中国","北京市","\t"],["中国","湖北省","\t"]]
 	flist=[]
 	votemax(address,flist)
 	for i in range(len(flist)):

@@ -43,73 +43,75 @@ def writefile(ipinfo):
 			output.write(ipinfo[basekey][ipkey][2]+'\t')
 			output.write('\n')
 			#print json.dumps(ipinfo, encoding='utf-8', ensure_ascii=False) 
-			#print ipinfo.decode('utf-8').encode(gb2312)
+			#print ipinfo.decode('utf-8').encode('gbk')
 	output.close()
 	
 def compl(ipinfo,code):  #code=0,country;1:province;2:city
 	sum=0
-	i=16777470
+	ipnum=16777470
 	output=open('E:\\s\\IP\\ipinfo\\temp\\temp.csv','w')
-	while(i<16777475):
+	fians={}
+	while(ipnum<16777475):
 		address=[]
 		sum=0
 		for basekey in ipinfo:  #每个库遍历
-			#print basekey+'\t:\t'+str(i),
 			for ipkey in ipinfo[basekey]:  #每个IP
-				#output.write(ipkey+'\n')
-				if(isin(i,ipkey)==1):     
-					#print i
+				if(isin(ipnum,ipkey)==1):     
 					sum=sum+1         #IP库个数
-					#for valueaddr in ipinfo[basekey][ipkey]:  #IP地址
-						#print valueaddr.decode('utf-8').encode('gbk'),
-						#print address
-					#print '\n'
 					address.append(ipinfo[basekey][ipkey])
 					break
-				#else :
-					#print i
-					#i=i+1
-		print sum
-		for addnum in range(len(address)):
-			for j in range(len(address[addnum])):
-				print address[addnum][j].decode('utf-8').encode('gbk'),
-			print '\n'
-		votemax(address,sum)
+		#for addnum in range(len(address)):
+			#for j in range(len(address[addnum])):
+				#print address[addnum][j].decode('utf-8').encode('gbk'),
+			#print '\n'
+		templist=votemax(address)
+		fians.setdefault(str(ipnum),templist)
 		address[:]=[]
-		i=i+1
+		ipnum=ipnum+1
+	#print fians
+	for ip in fians:
+		output.write(ip)
+		for ansnum in range(3):
+			output.write('\t'+fians[ip][ansnum]) ,
+		output.write("\n") 
 	output.close()			
 
-def votemax(address,flist):
+def votemax(address):
+	flist=[]
 	maxacc=0
 	tempadd={}
 	tempkey=""
-	#if(len(address)==0):
 	for i in range(len(address)):
 		if(len(address[i])>maxacc):
 			maxacc=len(address[i])
-	for addnum in range(maxacc):
+	for addnum in range(3):
 		for i in range(len(address)):
 			if(tempadd.has_key(address[i][addnum])==True):
 				tempadd[address[i][addnum]]+=1
 			else :
 				tempadd[address[i][addnum]]=1
 		tempkey=selmax(tempadd)
+		address=delval(address,tempkey,addnum)
 		flist.insert(addnum,tempkey)
-		tempkey=""
-		#for add1 in tempadd:
-			#print add1.decode('utf-8').encode('gbk'),
-			#print tempadd[add1],
 		tempadd={}
-		#print "this ---- "
+	return flist
+
+def delval(address,val,addnum):
+	for key in address:
+		if(key[addnum]!=val):
+			address.remove(key)
+	return address
+
+
+
 
 def selmax(tempdic):
 	max=0
+	loc='\t'
 	for key in tempdic:
-		#print "this temokey"+'\t'+str(tempdic[key])+'\t'+str(max)+'\t'+"end temokey"
-		if(tempdic[key]>max):
+		if(tempdic[key]>max and key!="\t"):
 			max=tempdic[key]
 			loc=key
-		#print "this temokey"+'\t'+loc.decode('utf-8').encode('gbk')+'\t'+key.decode('utf-8').encode('gbk')+'\t'+"end temokey"
 	return loc
 
 def isin(ip,ipseg):
