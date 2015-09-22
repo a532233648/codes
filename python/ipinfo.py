@@ -9,10 +9,11 @@ sys.setdefaultencoding('utf-8')
 
 def readfile(ipinfo):
 	#ipinfo={}
-	path='E:\\s\\IP\\ipinfo\\temp\\'
+	#path='E:\\s\\IP\\ipinfo\\temp\\'
+	path='E:\\s\\IP\\ipinfo\\'
 	#path='/home/rock/rock/ipinfo/'
-	#files=['info_baidu.csv','info_cz.csv','info_geoip.csv','info_ip2location.csv','info_ip138.csv','info_sina.csv','info_taobao.csv']
-	files=['info_baidu.csv','info_cz.csv','info_geoip.csv','info_ip2location.csv','info_taobao.csv']
+	files=['info_baidu.csv','info_cz.csv','info_geoip.csv','info_ip2location.csv','info_ip138.csv','info_sina.csv','info_taobao.csv']
+	#files=['info_baidu.csv','info_cz.csv','info_geoip.csv','info_ip2location.csv','info_taobao.csv']
 	filesdict=[]
 	for file in files:
 		fileopen=open(path+file)
@@ -27,51 +28,68 @@ def readfile(ipinfo):
 				ipinfo.setdefault(linespl[0],{ip:addr})
 			#ipinfo.update({linespl[0],{ip:addr}})
 	
-	
-def writefile(ipinfo):
-	output=open('E:\\s\\IP\\ipinfo\\temp\\answer.csv','w')
-	for basekey in ipinfo:  #每个库遍历
-		for ipkey in ipinfo[basekey]:  #每个IP
-			#output.write(basekey+':'+valueaddr+':'+ipkey[valueaddr])
-			#print basekey+':'+ipkey+':',
-			output.write(basekey+':'+ipkey+' ')
-			#print json.dumps(ipinfo[basekey][ipkey], encoding='utf-8', ensure_ascii=False)
-			#print str(ipinfo[basekey][ipkey]).decode('utf-8').encode('gbk')
-			#print ipinfo[basekey][ipkey][0].decode('utf-8').encode('gbk')
-			output.write(ipinfo[basekey][ipkey][0]+'\t')
-			output.write(ipinfo[basekey][ipkey][1]+'\t')
-			output.write(ipinfo[basekey][ipkey][2]+'\t')
-			output.write('\n')
-			#print json.dumps(ipinfo, encoding='utf-8', ensure_ascii=False) 
-			#print ipinfo.decode('utf-8').encode('gbk')
-	output.close()
-	
-def compl(ipinfo,code):  #code=0,country;1:province;2:city
+def compl(ipinfo,nimip,maxip):  #code=0,country;1:province;2:city
 	sum=0
-	ipnum=16777472
-	output=open('E:\\s\\IP\\ipinfo\\temp\\temp.csv','w')
+	ipnum=minip
 	fians={}
 	templist=[]
-	while(ipnum<18234879):
+	ipaddress=[]
+	markadd=[]
+	mark=0
+	while(ipnum<maxip):
+		endip=ipnum
 		address=[]
 		sum=0
-		for basekey in ipinfo:  #每个库遍历
-			for ipkey in ipinfo[basekey]:  #每个IP
-				if(isin(ipnum,ipkey)==1):     
-					sum=sum+1         #IP库个数
-					address.append(ipinfo[basekey][ipkey])
-					break
-		votemax(address,templist)
-		fians.setdefault(str(ipnum),templist)
+		address=searchip(ipinfo,ipnum)    #查找出与IP对应的各个库地址
+		if(len(address)==0):
+			continue
+		votemax(address,templist)  #选出多数赞同的地址，保存在templist里
+		if(mark==0):
+			startip=ipnum
+			markadd=templist
+			markip=endip
+		elif(mark>0):
+			if((endip-markip)==1 and (markadd==templist)==True):
+				markip=endip
+			else :
+				fians.setdefault(str(startip)+"\t"+str(markip),markadd)
+				startip=endip
+				markip=endip
+				markadd=templist
+				mark=0
+		if(ipnum==(maxip-1)):
+			fians.setdefault(str(startip)+"\t"+str(markip),markadd)
 		templist=[]
 		address[:]=[]
 		ipnum=ipnum+1
+		mark=mark+1
+		if(len(fians)==5):
+			write_ans(fians)
+			fians={}
+	write_ans(fians)
+	
+
+def searchip(ipinfo,ipnum):
+	tempadd=[]
+	for basekey in ipinfo:  #每个库遍历
+		for ipkey in ipinfo[basekey]:  #每个IP
+			if(isin(ipnum,ipkey)==1):   
+				tempadd.append(ipinfo[basekey][ipkey])
+				break
+	return tempadd
+	
+
+def write_ans(fians):
+	output=open('E:\\s\\IP\\ipinfo\\temp\\temp.csv','a+')
 	for ip in fians:
-		output.write(ip)
-		for ansnum in range(3):
+		output.write(ip),
+		for ansnum in range(len(fians[ip])):
 			output.write('\t'+fians[ip][ansnum]) ,
 		output.write("\n") 
-	output.close()			
+	output.close()
+
+
+
 
 def votemax(address,flist):
 	tempadd={}
@@ -118,8 +136,10 @@ def isin(ip,ipseg):
 
 
 if __name__=='__main__':
+	minip=16777452
+	maxip=16807979
 	ipinfo={}
 	readfile(ipinfo)
-	writefile(ipinfo)
-	compl(ipinfo,0)
+	compl(ipinfo,minip,maxip)
+	
 
