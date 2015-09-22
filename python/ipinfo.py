@@ -48,10 +48,11 @@ def writefile(ipinfo):
 	
 def compl(ipinfo,code):  #code=0,country;1:province;2:city
 	sum=0
-	ipnum=16777470
+	ipnum=16777472
 	output=open('E:\\s\\IP\\ipinfo\\temp\\temp.csv','w')
 	fians={}
-	while(ipnum<16777475):
+	templist=[]
+	while(ipnum<18234879):
 		address=[]
 		sum=0
 		for basekey in ipinfo:  #每个库遍历
@@ -60,15 +61,11 @@ def compl(ipinfo,code):  #code=0,country;1:province;2:city
 					sum=sum+1         #IP库个数
 					address.append(ipinfo[basekey][ipkey])
 					break
-		#for addnum in range(len(address)):
-			#for j in range(len(address[addnum])):
-				#print address[addnum][j].decode('utf-8').encode('gbk'),
-			#print '\n'
-		templist=votemax(address)
+		votemax(address,templist)
 		fians.setdefault(str(ipnum),templist)
+		templist=[]
 		address[:]=[]
 		ipnum=ipnum+1
-	#print fians
 	for ip in fians:
 		output.write(ip)
 		for ansnum in range(3):
@@ -76,14 +73,9 @@ def compl(ipinfo,code):  #code=0,country;1:province;2:city
 		output.write("\n") 
 	output.close()			
 
-def votemax(address):
-	flist=[]
-	maxacc=0
+def votemax(address,flist):
 	tempadd={}
 	tempkey=""
-	for i in range(len(address)):
-		if(len(address[i])>maxacc):
-			maxacc=len(address[i])
 	for addnum in range(3):
 		for i in range(len(address)):
 			if(tempadd.has_key(address[i][addnum])==True):
@@ -94,7 +86,6 @@ def votemax(address):
 		address=delval(address,tempkey,addnum)
 		flist.insert(addnum,tempkey)
 		tempadd={}
-	return flist
 
 def delval(address,val,addnum):
 	for key in address:
@@ -102,32 +93,33 @@ def delval(address,val,addnum):
 			address.remove(key)
 	return address
 
+def outputsome(address):
+	for add in address:
+		print add.decode('utf-8').encode('gbk')+"\t"+str(address[add])
 
 
 
 def selmax(tempdic):
 	max=0
-	loc='\t'
+	loc="\t"
 	for key in tempdic:
-		if(tempdic[key]>max and key!="\t"):
+		if(tempdic[key]>max and key!=""):
 			max=tempdic[key]
 			loc=key
 	return loc
 
 def isin(ip,ipseg):
-    templist=ipseg.split('\t')
-    templist=map(int,templist)
-    if(ip>=templist[0] and ip<=templist[1]):
-        return 1
-    else:
-        return 0
+	templist=ipseg.split('\t')
+	templist=map(int,templist)
+	if(ip>=templist[0] and ip<=templist[1]):
+		return 1
+	else:
+		return 0
 
 
 if __name__=='__main__':
-	#file=open('/home/rock/rock/ipinfo/info_baidu.csv')
 	ipinfo={}
 	readfile(ipinfo)
 	writefile(ipinfo)
 	compl(ipinfo,0)
-	#compl(ipinfo)
 

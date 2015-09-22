@@ -37,13 +37,9 @@ def isin(ip,ipseg):
 		return 0
 
 def votemax(address,flist):
-	maxacc=0
 	tempadd={}
 	tempkey=""
 	#if(len(address)==0):
-	for i in range(len(address)):
-		if(len(address[i])>maxacc):
-			maxacc=len(address[i])
 	for addnum in range(3):
 		for i in range(len(address)):
 			if(tempadd.has_key(address[i][addnum])==True):
@@ -82,14 +78,15 @@ def selmax(tempdic):
 
 #def delval(tempdic):
 	
-
-
-if __name__=='__main__':
-	address=[["泰国","京市","海淀区"],["泰国","京市","海淀区"],["泰国","京市","海淀区"],["中国","北京市","朝阳区"],["中国","湖南省","朝阳区"],["中国","北京市","\t"],["中国","湖北省","\t"]]
+def compl():
+	address=[["中国","\t",'\t'],["中国","福建省",'\t'],["中国","福建省",'\t'],["中国","福建省","福州市"],["中国","福建省",'\t']]
 	flist=[]
 	votemax(address,flist)
 	for i in range(len(flist)):
 		print flist[i].decode('utf-8').encode('gbk'),
+
+if __name__=='__main__':
+	compl()
 	
 	#ipfiles()
 	#ipseg="16779264"+'\t'+"16781311"
