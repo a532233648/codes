@@ -34,12 +34,14 @@ def readfile(ipinfo):
 def searchip(ipnum):
     #path='E:\\s\\IP\\ipinfo\\temp\\' #win7 小文件
     #path='E:\\s\\IP\\ipinfo\\'      #win7
-    path='/home/rock/rock/ipinfo/'   #ubuntu
+    path='E:\\temp\\merge\\'
+    #path='/home/rock/rock/ipinfo/'   #ubuntu
     #path='/home/rock/work/tempipifno/'  #ubuntu 小文件
     files=['info_baidu.csv','info_cz.csv','info_geoip.csv','info_ip2location.csv','info_ip138.csv','info_sina.csv','info_taobao.csv']
     #files=['info_baidu.csv','info_cz.csv','info_geoip.csv','info_ip2location.csv','info_taobao.csv']
     tempadd=[]
     address=[]
+    tempendiplist=[]
     for file in files:
         output=open(path+file)
         for line in output.readlines():
@@ -48,26 +50,33 @@ def searchip(ipnum):
             addr=[linespl[3],linespl[4],linespl[5]]
             if(isin(ipnum,ipseg)==1):
                 address.append(addr)
+                tempendiplist.append(linespl[2])
                 break
         output.close()
-    return address
+    if(len(address)!=0 and len(tempendiplist)!=0):
+        tempendiplist=map(int,tempendiplist)
+        tempendip=min(tempendiplist)
+    else :
+        tempendip=0
+    return address,tempendip
 
 
-	
+
 def compl(nimip,maxip):  
     sum=0
-    ipnum=minip
+    ipnum=minip-1
     fians={}
     templist=[]
     ipaddress=[]
     markadd=[]
     mark=0
-    while(ipnum<maxip):
-        endip=ipnum
+    startip=ipnum+1
+    while(startip<maxip):
+        ipnum=ipnum+1
         address=[]
         sum=0
-        address=searchip(ipnum)    #查找出与IP对应的各个库地址
-        if(len(address)==0):
+        address,endip=searchip(ipnum)    #查找出与IP对应的各个库地址
+        if(endip==0):
             continue
         votemax(address,templist)  #选出多数赞同的地址，保存在templist里
         if(mark==0):
@@ -75,19 +84,19 @@ def compl(nimip,maxip):
             markadd=templist
             markip=endip
         elif(mark>0):
-            if((endip-markip)==1 and (markadd==templist)==True):
+            if((ipnum-markip)==1 and (markadd==templist)==True):
                 markip=endip
             else :
                 fians.setdefault(str(startip)+"\t"+str(markip),markadd)
-                startip=endip
+                startip=ipnum
                 markip=endip
                 markadd=templist
                 mark=0
-        if(ipnum==(maxip-1)):
+            ipnum=endip
+        if(ipnum>=(maxip-1)):
             fians.setdefault(str(startip)+"\t"+str(markip),markadd)
         templist=[]
         address[:]=[]
-        ipnum=ipnum+1
         mark=mark+1
         if(len(fians)==5):
             write_ans(fians)
@@ -97,9 +106,10 @@ def compl(nimip,maxip):
 
 def write_ans(fians):
     #output=open('E:\\s\\IP\\ipinfo\\temp\\temp.csv','a+')
-    writeout=open('/home/rock/work/ans.csv','a+')
+    #writeout=open('/home/rock/work/ans.csv','a+')
+    writeout=open('E:\\s\\IP\\ipinfo\\temp\\ans.csv','a+')
     for ip in fians:
-	writeout.write(ip),
+        writeout.write(ip),
         for ansnum in range(len(fians[ip])):
             writeout.write('\t'+fians[ip][ansnum]) ,
         writeout.write("\n") 
@@ -153,14 +163,17 @@ def isin(ip,ipseg):
 
 
 if __name__=='__main__':
-    minip=16777452
-    maxip=16777553
+    minip=16777216
+    maxip=3758096383
+    #maxip=16778216
     starttime=time.time()
+    print time.localtime()
     #ipinfo={}
     #readfile(ipinfo)
     compl(minip,maxip)
     endtime=time.time()
     time=endtime-starttime
+    print time.localtime()
     print "time sec:",
     print time
     time=time/3600
