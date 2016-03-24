@@ -1,0 +1,26 @@
+INFO 2016-03-24 22:09:58,970: Running
+INFO 2016-03-24 22:09:58,971: Using default config file.
+INFO 2016-03-24 22:09:58,973: Reading CAMEO.verbpatterns.150430.txt
+INFO 2016-03-24 22:09:59,210: Reading D:\soft2\python\lib\site-packages\petrarch-0.1a0-py2.7.egg\petrarch\data/dictionaries\Phoenix.Countries.actors.txt
+WARNING 2016-03-24 22:09:59,404: End date in interval date restriction is less than starting date; line skipped
+WARNING 2016-03-24 22:09:59,638: String in date restriction could not be interpreted; line skipped
+INFO 2016-03-24 22:09:59,976: Reading D:\soft2\python\lib\site-packages\petrarch-0.1a0-py2.7.egg\petrarch\data/dictionaries\Phoenix.International.actors.txt
+WARNING 2016-03-24 22:09:59,977: End date in interval date restriction is less than starting date; line skipped
+INFO 2016-03-24 22:10:00,105: Reading D:\soft2\python\lib\site-packages\petrarch-0.1a0-py2.7.egg\petrarch\data/dictionaries\Phoenix.MilNonState.actors.txt
+INFO 2016-03-24 22:10:00,150: Reading Phoenix.agents.txt
+
+WARNING 2016-03-24 22:10:00,216: Codes are required for agents in .agents file ; line skipped
+INFO 2016-03-24 22:10:00,223: Reading Phoenix.discards.txt
+INFO 2016-03-24 22:10:00,226: Reading Phoenix.IssueCoding.txt
+INFO 2016-03-24 22:10:00,273: Setting up StanfordNLP
+INFO 2016-03-24 22:10:10,631: Stanford setup complete. Starting parse of 1 stories.
+INFO 2016-03-24 22:10:10,631: StanfordNLP parsing BBC20160105_1...
+INFO 2016-03-24 22:10:11,335: StanfordNLP parsing BBC20160105_3...
+INFO 2016-03-24 22:10:12,006: StanfordNLP parsing BBC20160105_2...
+INFO 2016-03-24 22:10:12,262: StanfordNLP parsing BBC20160105_4...
+INFO 2016-03-24 22:10:12,394: Done with StanfordNLP parse.
+INFO 2016-03-24 22:10:12,394: Processing BBC20160105
+INFO 2016-03-24 22:10:12,394: 	Processing BBC20160105_1
+INFO 2016-03-24 22:10:12,398: 	Processing BBC20160105_3
+INFO 2016-03-24 22:10:12,414: 	Processing BBC20160105_2
+INFO 2016-03-24 22:10:12,443: 	Processing BBC20160105_4
