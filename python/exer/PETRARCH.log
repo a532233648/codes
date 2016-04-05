@@ -1,0 +1,14 @@
+INFO 2016-03-26 18:53:45,105: Running
+INFO 2016-03-26 18:53:45,105: Using default config file.
+INFO 2016-03-26 18:53:45,119: Reading CAMEO.verbpatterns.150430.txt
+INFO 2016-03-26 18:53:45,359: Reading D:\soft2\python\lib\site-packages\petrarch-0.1a0-py2.7.egg\petrarch\data/dictionaries\Phoenix.Countries.actors.txt
+WARNING 2016-03-26 18:53:45,555: End date in interval date restriction is less than starting date; line skipped
+WARNING 2016-03-26 18:53:45,782: String in date restriction could not be interpreted; line skipped
+INFO 2016-03-26 18:53:46,115: Reading D:\soft2\python\lib\site-packages\petrarch-0.1a0-py2.7.egg\petrarch\data/dictionaries\Phoenix.International.actors.txt
+WARNING 2016-03-26 18:53:46,115: End date in interval date restriction is less than starting date; line skipped
+INFO 2016-03-26 18:53:46,244: Reading D:\soft2\python\lib\site-packages\petrarch-0.1a0-py2.7.egg\petrarch\data/dictionaries\Phoenix.MilNonState.actors.txt
+INFO 2016-03-26 18:53:46,292: Reading Phoenix.agents.txt
+
+WARNING 2016-03-26 18:53:46,359: Codes are required for agents in .agents file ; line skipped
+INFO 2016-03-26 18:53:46,369: Reading Phoenix.discards.txt
+INFO 2016-03-26 18:53:46,372: Reading Phoenix.IssueCoding.txt
